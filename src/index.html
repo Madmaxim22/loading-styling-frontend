@@ -1,11 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loading <Style></Style></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Styling</title>
 </head>
 <body>
-  
+    <div class="app-container">
+        <!-- Состояние загрузки -->
+        <div id="loading-state" class="state-container loading-state">
+        <h1>Новости мира кино</h1>
+        <button id="refresh-btn" class="refresh-btn">Обновить</button>
+        <div class="loading-content">
+            <p>Загрузка...</p>
+            <div class="skeleton-card">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+            <div class="skeleton-image"></div>
+            </div>
+            <div class="skeleton-card">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+            <div class="skeleton-image"></div>
+            </div>
+            <div class="skeleton-card">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+            <div class="skeleton-image"></div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Модальное окно ошибки -->
+        <div id="modal-error" class="modal hidden">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Ошибка подключения</h2>
+            <p>Нет подключения к интернету. Пожалуйста, проверьте ваше подключение и попробуйте снова.</p>
+          </div>
+        </div>
+
+        <!-- Основной контент (появляется после загрузки) -->
+        <div id="content-state" class="state-container content-state hidden">
+        <h1>Новости мира кино</h1>
+        <button id="update-btn" class="update-btn">Обновить</button>
+        <div id="content" class="content">
+            <!-- Динамический контент будет вставлен сюда -->
+        </div>
+        </div>
+    </div>
 </body>
 </html>
