@@ -29,16 +29,16 @@ const newsView = new NewsDisplay(
 );
 const newsController = new NewsController(newsView, networkService, logger);
 
-// Регистрация Service Worker
+// Регистрация Service Worker (генерируется Workbox)
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("/sw.js")
+      .register("/service-worker.js")
       .then((registration) => {
-        console.log("Service Worker зарегистрирован: ", registration);
+        console.log("Workbox Service Worker зарегистрирован: ", registration);
       })
       .catch((error) => {
-        console.log("Ошибка регистрации Service Worker: ", error);
+        console.log("Ошибка регистрации Workbox Service Worker: ", error);
       });
   });
 }

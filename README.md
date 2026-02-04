@@ -7,6 +7,7 @@
 Основные особенности проекта:
 - Реализация паттерна MVC с четким разделением ответственности
 - Поддержка кэширования данных для повышения производительности
+- Workbox для автоматического кэширования и оффлайн-режима
 - Обработка сетевых ошибок и отображение модальных окон ошибок
 - Адаптивный дизайн с использованием CSS-переменных
 - Логирование действий пользователя и системных событий
@@ -19,6 +20,7 @@
 - **HTML5** - разметка страницы
 - **CSS3** - стилизация и анимации
 - **Webpack** - сборка проекта
+- **Workbox** - Service Worker и кэширование
 - **ESLint** - статический анализ кода
 
 ### Зависимости проекта (package.json):
@@ -226,5 +228,10 @@ GitHub: [https://github.com/madmaxim22](https://github.com/madmaxim22)
 
 - [MDN Web Docs](https://developer.mozilla.org/ru/docs/Web)
 - [Webpack Documentation](https://webpack.js.org/)
+- [Workbox Documentation](https://developer.chrome.com/docs/workbox/)
 - [ESLint Documentation](https://eslint.org/)
 - [JavaScript ES6+ Features](https://developer.mozilla.org/ru/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla)
+
+## Миграция на Workbox
+
+Проект использует `workbox-webpack-plugin` для автоматической генерации Service Worker. Подробности миграции см. в [WORKBOX_MIGRATION.md](WORKBOX_MIGRATION.md).
