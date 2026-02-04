@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { GenerateSW } from "workbox-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 
@@ -11,7 +12,7 @@ export default {
   entry: path.resolve(__dirname, "src", "index.js"),
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "[name].[contenthash].js",
+    filename: "[name].js",
     assetModuleFilename: "assets/[hash][ext][query]",
     clean: true,
   },
@@ -19,8 +20,15 @@ export default {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "index.html"),
     }),
+    new MiniCssExtractPlugin({
+      filename: "css/style.css",
+      chunkFilename: "css/style.css",
+    }),
     new CopyWebpackPlugin({
-      patterns: [{ from: "LICENSE", to: "." }],
+      patterns: [
+        { from: "LICENSE", to: "." },
+        { from: "src/sw.js", to: "." },
+      ],
     }),
   ],
   module: {
@@ -40,10 +48,10 @@ export default {
       {
         test: /\.css$/i,
         use: [
-          "style-loader",
+          MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-            options: { sourceMap: true },
+            options: { sourceMap: false },
           },
         ],
       },
@@ -59,6 +67,6 @@ export default {
     open: true,
     host: "0.0.0.0",
     allowedHosts: "all",
-    server: "https",
+    server: "http",
   },
 };

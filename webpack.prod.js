@@ -12,7 +12,7 @@ export default {
   entry: path.resolve(__dirname, "src", "index.js"),
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "[name].[contenthash].js",
+    filename: "[name].js",
     assetModuleFilename: "assets/[hash][ext][query]",
     clean: true,
   },
@@ -21,11 +21,14 @@ export default {
       template: path.resolve(__dirname, "src", "index.html"),
     }),
     new MiniCssExtractPlugin({
-      filename: "css/[name].[contenthash:8].css",
-      chunkFilename: "css/[name].[contenthash:8].css",
+      filename: "css/style.css",
+      chunkFilename: "css/style.css",
     }),
     new CopyWebpackPlugin({
-      patterns: [{ from: "LICENSE", to: "." }],
+      patterns: [
+        { from: "LICENSE", to: "." },
+        { from: "src/sw.js", to: "." },
+      ],
     }),
   ],
   module: {

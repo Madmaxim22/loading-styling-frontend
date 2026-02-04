@@ -35,14 +35,14 @@ export class NewsController extends INewsController {
       if (refreshBtn) {
         refreshBtn.addEventListener("click", () => {
           this.logger.info("Клик по кнопке обновления");
-          this.loadData(false);
+          this.loadData();
         });
       }
 
       if (updateBtn) {
         updateBtn.addEventListener("click", () => {
           this.logger.info("Клик по кнопке обновления");
-          this.loadData(false);
+          this.loadData();
         });
       }
 
@@ -55,7 +55,7 @@ export class NewsController extends INewsController {
         if (modal) {
           modal.classList.add("hidden");
         }
-        this.loadData(false);
+        this.loadData();
       });
 
       window.addEventListener("offline", () => {
@@ -63,7 +63,7 @@ export class NewsController extends INewsController {
         // Когда теряется подключение, оставляем состояние загрузки
         // и не показываем ошибку сразу
         this.newsView.showLoadingState();
-        this.loadData(false);
+        this.loadData();
       });
 
       // Загружаем данные при инициализации
@@ -75,20 +75,18 @@ export class NewsController extends INewsController {
   /**
    * Функция для загрузки данных и обновления UI
    * @async
-   * @param {boolean} useCache - Использовать кэш
    * @returns {Promise<void>}
    */
-  async loadData(useCache = true) {
-    this.logger.info("Начало загрузки данных", { useCache });
+  async loadData() {
+    this.logger.info("Начало загрузки данных");
 
     // Отображаем состояние загрузки
     this.newsView.showLoadingState();
 
     try {
       // Загружаем данные с сервера
-      // Если useCache=false, то принудительно обходим кэш
-      this.logger.info("Запрос данных с сервера", { useCache });
-      const data = await this.networkService.getNews({ useCache });
+      this.logger.info("Запрос данных с сервера");
+      const data = await this.networkService.getNews();
 
       // Отображаем содержимое
       this.logger.info("Данные успешно получены", {
@@ -104,7 +102,6 @@ export class NewsController extends INewsController {
       this.logger.warn(
         "Нет подключения к интернету или сервер недоступен, ожидаем восстановления соединения",
       );
-
     }
   }
 }
