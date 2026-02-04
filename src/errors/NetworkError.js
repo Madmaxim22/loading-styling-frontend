@@ -7,9 +7,9 @@ export class NetworkError extends Error {
    * @param {string} message - Сообщение об ошибке
    * @param {string} code - Код ошибки
    */
-  constructor(message, code = "NETWORK_ERROR") {
+  constructor(message, code = 'NETWORK_ERROR') {
     super(message);
-    this.name = "NetworkError";
+    this.name = 'NetworkError';
     this.code = code;
   }
 }

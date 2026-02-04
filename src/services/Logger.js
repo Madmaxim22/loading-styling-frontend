@@ -1,4 +1,4 @@
-import { ILogger } from "../interfaces/ILogger.js";
+import { ILogger } from '../interfaces/ILogger.js';
 
 /**
  * Реализация логгера

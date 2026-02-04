@@ -1,5 +1,8 @@
 # Loading Styling Frontend
 
+![Deploy](https://github.com/Madmaxim22/loading-styling-frontend/workflows/Test%20and%20Deploy/badge.svg)
+[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue?logo=github)](https://madmaxim22.github.io/loading-styling-frontend/)
+
 ## Описание проекта
 
 Проект "Loading Styling" представляет собой современное веб-приложение для отображения новостей с использованием современных технологий и паттернов проектирования. Приложение демонстрирует правильное применение архитектурных принципов, таких как MVC (Model-View-Controller), использование интерфейсов, логирование и обработка сетевых ошибок.

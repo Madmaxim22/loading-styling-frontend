@@ -20,15 +20,15 @@ export class NewsDisplay extends INewsView {
     this.contentStateId = options.contentStateId || 'content-state';
     this.contentDivId = options.contentDivId || 'content';
     this.modalErrorId = options.modalErrorId || 'modal-error';
-    
+
     // Инициализация элементов DOM с проверкой на существование
     this.loadingState = document.getElementById(this.loadingStateId);
     this.contentState = document.getElementById(this.contentStateId);
     this.contentDiv = document.getElementById(this.contentDivId);
     this.modalError = document.getElementById(this.modalErrorId);
-    
+
     this.logger = logger || console;
-    
+
     // Следим за состоянием модального окна для предотвращения дублирования обработчиков
     this.modalHandlersAttached = false;
   }
@@ -39,7 +39,7 @@ export class NewsDisplay extends INewsView {
    */
   showLoadingState() {
     this.logger.info('Отображение состояния загрузки');
-    
+
     // Проверяем, что элемент существует перед изменением классов
     if (this.loadingState) {
       this.loadingState.classList.remove('hidden');
@@ -56,7 +56,7 @@ export class NewsDisplay extends INewsView {
    */
   showContentState(data) {
     this.logger.info('Отображение контента', { count: data?.length || 0 });
-    
+
     // Проверяем, что элементы существуют перед изменением классов
     if (this.loadingState) {
       this.loadingState.classList.add('hidden');
@@ -68,17 +68,17 @@ export class NewsDisplay extends INewsView {
     // Проверяем, что контейнер существует перед очисткой
     if (this.contentDiv) {
       // Очищаем контейнер
-      this.contentDiv.innerHTML = "";
+      this.contentDiv.innerHTML = '';
 
       // Проверяем, что данные существуют
       if (Array.isArray(data) && data.length > 0) {
         // Используем DocumentFragment для оптимизации рендеринга
         const fragment = document.createDocumentFragment();
-        
+
         // Создаем и добавляем элементы новостей
         data.forEach((post) => {
-          const postElement = document.createElement("div");
-          postElement.className = "post";
+          const postElement = document.createElement('div');
+          postElement.className = 'post';
 
           // Используем шаблонный литерал для создания HTML
           postElement.innerHTML = `
@@ -89,13 +89,13 @@ export class NewsDisplay extends INewsView {
           // Используем append вместо innerHTML для лучшей безопасности
           fragment.appendChild(postElement);
         });
-        
+
         // Добавляем все элементы за один раз
         this.contentDiv.appendChild(fragment);
       } else {
         // Если данных нет, показываем сообщение
-        const emptyMessage = document.createElement("p");
-        emptyMessage.textContent = "Нет новостей для отображения";
+        const emptyMessage = document.createElement('p');
+        emptyMessage.textContent = 'Нет новостей для отображения';
         this.contentDiv.appendChild(emptyMessage);
       }
     }
@@ -107,26 +107,26 @@ export class NewsDisplay extends INewsView {
    */
   showModalError() {
     this.logger.info('Отображение модального окна ошибки');
-    
+
     if (this.modalError) {
-      this.modalError.classList.remove("hidden");
+      this.modalError.classList.remove('hidden');
 
       // Добавляем обработчик закрытия модального окна, только если он еще не добавлен
       if (!this.modalHandlersAttached) {
-        const closeBtn = this.modalError.querySelector(".close");
+        const closeBtn = this.modalError.querySelector('.close');
         if (closeBtn) {
-          closeBtn.addEventListener("click", () => {
-            this.modalError.classList.add("hidden");
+          closeBtn.addEventListener('click', () => {
+            this.modalError.classList.add('hidden');
           });
         }
 
         // Закрытие модального окна при клике вне его области
-        this.modalError.addEventListener("click", (event) => {
+        this.modalError.addEventListener('click', (event) => {
           if (event.target === this.modalError) {
-            this.modalError.classList.add("hidden");
+            this.modalError.classList.add('hidden');
           }
         });
-        
+
         this.modalHandlersAttached = true;
       }
     }
@@ -139,15 +139,15 @@ export class NewsDisplay extends INewsView {
    * @returns {string} Безопасная строка
    */
   _escapeHtml(unsafe) {
-    if (typeof unsafe !== "string") {
-      return "";
+    if (typeof unsafe !== 'string') {
+      return '';
     }
 
     return unsafe
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
   }
 }

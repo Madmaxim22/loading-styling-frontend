@@ -1,6 +1,6 @@
-import { INetworkService } from "../interfaces/INetworkService.js";
-import { NetworkError } from "../errors/NetworkError.js";
-import { Logger } from "./Logger.js";
+import { INetworkService } from '../interfaces/INetworkService.js';
+import { NetworkError } from '../errors/NetworkError.js';
+import { Logger } from './Logger.js';
 
 /**
  * Сервис для работы с сетью
@@ -32,21 +32,21 @@ export class NewsApiService extends INetworkService {
    * @throws {NetworkError} При ошибках сети или сервера
    */
   async _makeRequest(url, options = {}) {
-    this.logger.info("Выполнение запроса", { url, options });
+    this.logger.info('Выполнение запроса', {
+      url, options
+    });
 
     // Проверяем наличие интернет-соединения
     if (!navigator.onLine) {
-      const error = new NetworkError("Нет подключения к интернету");
-      this.logger.error("Ошибка подключения", { error });
+      const error = new NetworkError('Нет подключения к интернету');
+      this.logger.error('Ошибка подключения', { error });
       throw error;
     }
 
     // Создаем контроллер AbortController для таймаута
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
-      this.logger.warn(`Превышено время ожидания запроса к ${url}`, {
-        timeout: this.timeout,
-      });
+      this.logger.warn(`Превышено время ожидания запроса к ${url}`, { timeout: this.timeout, });
       controller.abort();
     }, this.timeout);
 
@@ -62,11 +62,13 @@ export class NewsApiService extends INetworkService {
         const error = new NetworkError(
           `HTTP ошибка! статус: ${response.status}`,
         );
-        this.logger.error("Ошибка HTTP", { status: response.status, url });
+        this.logger.error('Ошибка HTTP', {
+          status: response.status, url
+        });
         throw error;
       }
 
-      this.logger.info("Запрос выполнен успешно", {
+      this.logger.info('Запрос выполнен успешно', {
         status: response.status,
         url,
       });
@@ -75,15 +77,19 @@ export class NewsApiService extends INetworkService {
       clearTimeout(timeoutId);
 
       // Если запрос был прерван из-за таймаута
-      if (error.name === "AbortError") {
+      if (error.name === 'AbortError') {
         const timeoutError = new NetworkError(
           `Запрос к ${url} превысил время ожидания (${this.timeout} мс)`,
         );
-        this.logger.error("Таймаут запроса", { url, timeout: this.timeout });
+        this.logger.error('Таймаут запроса', {
+          url, timeout: this.timeout
+        });
         throw timeoutError;
       }
 
-      this.logger.error("Ошибка сети", { error: error.message, url });
+      this.logger.error('Ошибка сети', {
+        error: error.message, url
+      });
       throw error;
     }
   }
@@ -97,17 +103,17 @@ export class NewsApiService extends INetworkService {
    * @throws {NetworkError} При ошибках сети или сервера
    */
   async fetchData(endpoint, options = {}) {
-    this.logger.info("Получение данных", { endpoint });
+    this.logger.info('Получение данных', { endpoint });
 
     try {
       const url = `${this.baseUrl}${endpoint}`;
       const response = await this._makeRequest(url, options);
       const data = await response.json();
 
-      this.logger.info("Данные успешно получены", { endpoint });
+      this.logger.info('Данные успешно получены', { endpoint });
       return data;
     } catch (error) {
-      this.logger.error("Ошибка получения данных", {
+      this.logger.error('Ошибка получения данных', {
         endpoint,
         error: error.message,
       });
@@ -121,6 +127,6 @@ export class NewsApiService extends INetworkService {
    * @throws {NetworkError} При ошибках сети или сервера
    */
   async getNews() {
-    return this.fetchData("/data");
+    return this.fetchData('/data');
   }
 }
